@@ -1,5 +1,6 @@
 package com.example.springboot.springbootproject.service;
 
+import com.example.springboot.springbootproject.exception.UserNotFoundException;
 import com.example.springboot.springbootproject.model.Student;
 import com.example.springboot.springbootproject.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class StudentsService {
     public List<Student> getAllStudents() {
         List<Student> out = new ArrayList<>();
         studentRepository.findAll().forEach(out::add);
+
+        if(out.isEmpty()) {
+            throw new UserNotFoundException("No users were found");
+        }
+
         return out;
     }
 

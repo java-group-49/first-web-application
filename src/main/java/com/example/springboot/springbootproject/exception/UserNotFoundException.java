@@ -1,2 +1,8 @@
-package com.example.springboot.springbootproject;public class UserNotFoundException {
+package com.example.springboot.springbootproject.exception;
+
+public class UserNotFoundException extends RuntimeException {
+
+    public UserNotFoundException(String message) {
+        super(message);
+    }
 }

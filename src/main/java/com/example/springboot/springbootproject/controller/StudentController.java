@@ -1,5 +1,7 @@
 package com.example.springboot.springbootproject.controller;
 
+import com.example.springboot.springbootproject.exception.UserNotFoundException;
+import com.example.springboot.springbootproject.model.ExceptionBody;
 import com.example.springboot.springbootproject.model.Student;
 import com.example.springboot.springbootproject.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,15 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public List<Student> getStudents() {
-        return service.getAllStudents();
+    public ResponseEntity<Object> getStudents() {
+        List<Student> students;
+        try {
+            students = service.getAllStudents();
+        } catch (UserNotFoundException ex) {
+            return ResponseEntity.status(404).body(new ExceptionBody("No users were found"));
+        }
+
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/student/{name}")
