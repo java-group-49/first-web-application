@@ -21,4 +21,8 @@ public class BookService {
     public List<Book> getAllBooks() {
         return new ArrayList<>(bookRepository.findAll());
     }
+
+    public void detachBook(String authorName, String title) {
+        bookRepository.detachBook(authorName, title);
+    }
 }
